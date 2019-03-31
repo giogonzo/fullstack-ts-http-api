@@ -1,0 +1,36 @@
+{
+  "name": "fullstack-typesafe-http-api",
+  "version": "0.0.0",
+  "description": "\"fullstack typesafe\" HTTP API example",
+  "scripts": {
+    "start": "npm run start-api & npm run start-web",
+    "start-api": "ts-node api/src",
+    "start-web": "webpack-dev-server --mode development --config web/webpack.config.ts"
+  },
+  "keywords": [
+    "typescript",
+    "io-ts",
+    "fullstack",
+    "typesafe"
+  ],
+  "author": "Giovanni Gonzaga <giovanni@buildo.io>",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/cors": "^2.8.4",
+    "@types/express": "^4.16.1",
+    "@types/node": "^11.12.2",
+    "@types/qs": "^6.5.2",
+    "html-webpack-plugin": "^3.2.0",
+    "ts-loader": "^5.3.3",
+    "ts-node": "^8.0.3",
+    "typescript": "^3.4.1",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.2.1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "qs": "^6.7.0"
+  }
+}

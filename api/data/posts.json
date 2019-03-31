@@ -1,0 +1,19 @@
+{
+  "1": {
+    "title": "My first post",
+    "body": "Hello there",
+    "date": "2019-04-01T21:07:19.902Z"
+  },
+  "2": {
+    "id": 2,
+    "title": "My second post",
+    "body": "Hello there",
+    "date": "2019-04-02T21:07:19.902Z"
+  },
+  "3": {
+    "id": 3,
+    "title": "My third post",
+    "body": "Hello there",
+    "date": "2019-04-03T21:07:19.902Z"
+  }
+}
