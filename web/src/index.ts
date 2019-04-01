@@ -4,7 +4,7 @@ import { getPostById } from './api'
 function renderPost(post: Post): string {
   return `
     <h1>${post.title}</h1>
-    <i>${post.date}</i>
+    <i>${post.date.toLocaleDateString()}</i>
     <p>${post.body}</p>
   `
 }
