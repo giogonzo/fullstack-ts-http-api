@@ -1,9 +1,11 @@
 import { stringify } from 'querystring'
-import { Post, GetPostByIdInput } from '../../api/src/model'
+import { GetPostByIdInput, GetPostByIdOutput } from '../../api/src/model'
 
 const apiEndpoint = 'http://localhost:3000'
 
-export function getPostById(query: GetPostByIdInput): Promise<Post> {
+export function getPostById(
+  query: GetPostByIdInput
+): Promise<GetPostByIdOutput> {
   const queryString = stringify(GetPostByIdInput.encode(query))
   const url = `${apiEndpoint}/getPostById?${queryString}`
   return window
@@ -15,4 +17,10 @@ export function getPostById(query: GetPostByIdInput): Promise<Post> {
       return res
     })
     .then(res => res.json())
+    .then(json =>
+      GetPostByIdOutput.decode(json).fold(
+        errors => Promise.reject(errors),
+        post => Promise.resolve(post)
+      )
+    )
 }

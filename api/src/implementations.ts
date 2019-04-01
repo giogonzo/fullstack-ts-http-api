@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import * as service from './service'
-import { GetPostByIdInput } from './model'
+import { GetPostByIdInput, GetPostByIdOutput } from './model'
 import { failure } from 'io-ts/lib/PathReporter'
 
 export function getPostById(req: Request, res: Response) {
@@ -10,7 +10,9 @@ export function getPostById(req: Request, res: Response) {
       res.status(422).send(failure(errors).join('\n'))
     },
     input => {
-      service.getById(input.id).then(post => res.status(200).send(post))
+      service
+        .getById(input.id)
+        .then(post => res.status(200).send(GetPostByIdOutput.encode(post)))
     }
   )
 }

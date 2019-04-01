@@ -1,10 +1,13 @@
 import * as t from 'io-ts'
+import { DateFromISOString } from 'io-ts-types/lib/Date/DateFromISOString'
 
-export type Post = {
-  title: string
-  body: string
-  date: Date
-}
+export const Post = t.type({
+  title: t.string,
+  body: t.string,
+  date: DateFromISOString
+})
+
+export type Post = t.TypeOf<typeof Post>
 
 export const GetPostByIdInput = t.type(
   {
@@ -14,3 +17,7 @@ export const GetPostByIdInput = t.type(
 )
 
 export type GetPostByIdInput = t.TypeOf<typeof GetPostByIdInput>
+
+export const GetPostByIdOutput = Post
+
+export type GetPostByIdOutput = Post
