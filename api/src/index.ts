@@ -8,4 +8,6 @@ app.use(cors())
 
 app.get('/getPostById', implementations.getPostById)
 
+app.get('/getPosts', implementations.getPosts)
+
 app.listen(3000)
