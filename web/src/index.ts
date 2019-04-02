@@ -1,5 +1,12 @@
 import { Post } from '../../api/src/model'
-import { getPostById, getPosts } from './api'
+import { makeAPICall } from './lib'
+import * as definitions from '../../api/src/definitions'
+
+const getPostById = makeAPICall(
+  'http://localhost:3000',
+  definitions.getPostById
+)
+const getPosts = makeAPICall('http://localhost:3000', definitions.getPosts)
 
 function renderPost(post: Post): string {
   return `

@@ -1,37 +1,11 @@
-import { Request, Response } from 'express'
+import * as definitions from './definitions'
 import * as service from './service'
-import {
-  GetPostByIdInput,
-  GetPostByIdOutput,
-  GetPostsInput,
-  GetPostsOutput
-} from './model'
-import { failure } from 'io-ts/lib/PathReporter'
+import { implementAPICall } from './lib'
 
-export function getPostById(req: Request, res: Response) {
-  const validatedInput = GetPostByIdInput.decode(req.query)
-  validatedInput.fold(
-    errors => {
-      res.status(422).send(failure(errors).join('\n'))
-    },
-    input => {
-      service
-        .getById(input.id)
-        .then(post => res.status(200).send(GetPostByIdOutput.encode(post)))
-    }
-  )
-}
+export const getPostById = implementAPICall(definitions.getPostById, input =>
+  service.getById(input.id)
+)
 
-export function getPosts(req: Request, res: Response) {
-  const validatedInput = GetPostsInput.decode(req.query)
-  validatedInput.fold(
-    errors => {
-      res.status(422).send(failure(errors).join('\n'))
-    },
-    input => {
-      service
-        .list(input.count)
-        .then(posts => res.status(200).send(GetPostsOutput.encode(posts)))
-    }
-  )
-}
+export const getPosts = implementAPICall(definitions.getPosts, input =>
+  service.list(input.count)
+)
