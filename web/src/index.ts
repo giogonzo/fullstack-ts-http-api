@@ -25,8 +25,9 @@ function renderPosts(posts: Array<Post>): string {
   `
 }
 
-Promise.all([getPostById({ id: '1' }), getPosts({ count: 3 })]).then(
+Promise.all([getPostById({ id: '42' }), getPosts({ count: 3 })]).then(
   ([post, posts]) => {
-    document.body.innerHTML = renderPost(post) + renderPosts(posts)
+    document.body.innerHTML =
+      post.fold('<h1>Post not found :(</h1>', renderPost) + renderPosts(posts)
   }
 )
