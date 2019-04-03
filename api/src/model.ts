@@ -1,6 +1,7 @@
 import * as t from 'io-ts'
 import { DateFromISOString } from 'io-ts-types/lib/Date/DateFromISOString'
 import { IntegerFromString } from 'io-ts-types/lib/number/IntegerFromString'
+import { optionFromJSON } from 'io-ts-types/lib/optionFromJSON'
 
 export const Post = t.type({
   title: t.string,
@@ -19,7 +20,7 @@ export const GetPostByIdInput = t.type(
 
 export type GetPostByIdInput = t.TypeOf<typeof GetPostByIdInput>
 
-export const GetPostByIdOutput = Post
+export const GetPostByIdOutput = optionFromJSON(Post)
 
 export type GetPostByIdOutput = Post
 
