@@ -1,12 +1,8 @@
 import { Post } from '../../api/src/model'
-import { makeAPICall } from './lib'
+import { makeAPI } from './lib'
 import * as definitions from '../../api/src/definitions'
 
-const getPostById = makeAPICall(
-  'http://localhost:3000',
-  definitions.getPostById
-)
-const getPosts = makeAPICall('http://localhost:3000', definitions.getPosts)
+const API = makeAPI('http://localhost:3000', definitions)
 
 function renderPost(post: Post): string {
   return `
@@ -25,7 +21,7 @@ function renderPosts(posts: Array<Post>): string {
   `
 }
 
-Promise.all([getPostById({ id: '42' }), getPosts({ count: 3 })]).then(
+Promise.all([API.getPostById({ id: '42' }), API.getPosts({ count: 3 })]).then(
   ([post, posts]) => {
     document.body.innerHTML =
       post.fold('<h1>Post not found :(</h1>', renderPost) + renderPosts(posts)

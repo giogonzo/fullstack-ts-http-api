@@ -3,7 +3,6 @@ import { Application, Request, Response } from 'express'
 import { failure } from 'io-ts/lib/PathReporter'
 
 export interface APICallDefinition<IA, IO, OA, OO> {
-  path: string
   input: Type<IA, IO>
   output: Type<OA, OO>
 }
@@ -28,11 +27,12 @@ export function implementAPICall<IA, IO, OA, OO>(
   }
 }
 
-export function addToExpress<IA, IO, OA, OO>(
+function addToExpress<IA, IO, OA, OO>(
   app: Application,
+  path: string,
   apiCall: APICall<IA, IO, OA, OO>
 ) {
-  app.get(apiCall.path, (req: Request, res: Response) => {
+  app.get(path, (req: Request, res: Response) => {
     const validatedInput = apiCall.input.decode(req.query)
     validatedInput.fold(
       errors => {
@@ -44,5 +44,14 @@ export function addToExpress<IA, IO, OA, OO>(
           .then(post => res.status(200).send(apiCall.output.encode(post)))
       }
     )
+  })
+}
+
+export function addAllToExpress(
+  app: Application,
+  apiCalls: Record<string, APICall<any, any, any, any>>
+) {
+  Object.entries(apiCalls).forEach(([path, apiCall]) => {
+    addToExpress(app, `/${path}`, apiCall)
   })
 }
